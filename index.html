@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Gift for the Queen! 👑</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Segoe+UI:wght@400;700&display=swap');
+        
+        body {
+            background-color: #fff5f8;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: #ad1457;
+        }
+
+        #terminal {
+            width: 80%;
+            max-width: 400px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .line {
+            margin: 5px 0;
+            font-weight: bold;
+            display: block;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #start-btn { background-color: #ff80ab; color: white; }
+        #yes-btn { background-color: #4caf50; color: white; margin-right: 20px;}
+        #no-btn { background-color: #f44336; color: white; position: absolute; }
+
+        .hidden { display: none; }
+        #contract-area { text-align: center; }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 2rem; color: #d81b60; }
+    </style>
+</head>
+<body>
+
+    <button id="start-btn" class="btn" onclick="startSequence()">Click to Open Your Gift 🎁</button>
+
+    <div id="terminal"></div>
+
+    <div id="contract-area" class="hidden">
+        <h1>Will you be my best friend<br>for another 100 years? 🥺✨</h1>
+        <div style="margin-top: 50px;">
+            <button id="yes-btn" class="btn" onclick="accepted()">YES! 💖</button>
+            <button id="no-btn" class="btn" onmouseover="moveNo()">No 👎</button>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            "Initializing Bestie Appreciation Mode... 💖",
+            "Loading memories... Done! ✅",
+            "Checking 'Fabulous' levels... ERROR: Off the charts! 📈✨",
+            "------------------------------------",
+            "To my favorite human,",
+            "You aren't just a best friend...",
+            "You're my unpaid therapist,",
+            "My partner in crime,",
+            "And the brightest light in my life! 🌟",
+            "------------------------------------",
+            "HAPPY BIRTHDAY!! 🎂🥳",
+            "May your day be as iconic as you are.",
+            "From: Your friend 🌸",
+            "WAIT! One more thing..."
+        ];
+
+        async function typeLine(text) {
+            const line = document.createElement('span');
+            line.className = 'line';
+            document.getElementById('terminal').appendChild(line);
+            
+            for (let char of text) {
+                line.innerHTML += char;
+                await new Promise(r => setTimeout(r, 40));
+            }
+            await new Promise(r => setTimeout(r, 600));
+        }
+
+        async function startSequence() {
+            document.getElementById('start-btn').classList.add('hidden');
+            for (let msg of messages) {
+                await typeLine(msg);
+            }
+            document.getElementById('terminal').classList.add('hidden');
+            document.getElementById('contract-area').classList.remove('hidden');
+        }
+
+        function moveNo() {
+            const btn = document.getElementById('no-btn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function accepted() {
+            alert("Contract Signed! Yay! Besties for the next 100 years! 🎉🌸");
+            location.reload(); 
+        }
+    </script>
+</body>
+</html>
